@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:background="@drawable/week_item_background"
+    android:padding="3dp">
+
+    <TextView
+        android:id="@+id/week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_below="@+id/date"
+        android:layout_margin="3dp"
+        android:gravity="center"
+        android:text="12/25/2016 - 18/25/2016"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@android:color/white"
+        android:textSize="12dp" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/week"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:background="@color/lightGrey"></View>
+
+    <TextView
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/separator"
+        android:layout_margin="3dp"
+        android:gravity="center"
+        android:text="vdf"
+        android:textColor="@android:color/white"
+        android:textSize="10dp" />
+
+    <!--<ImageView-->
+    <!--android:id="@+id/user_image"-->
+    <!--android:layout_width="50dp"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:layout_below="@+id/separator"-->
+    <!--android:layout_margin="5dp" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/separator"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:layout_toRightOf="@+id/user_image"-->
+    <!--android:text="name"-->
+    <!--android:textAppearance="@style/TextAppearance.AppCompat.Body2"-->
+    <!--android:textSize="20dp" />-->
+</RelativeLayout>

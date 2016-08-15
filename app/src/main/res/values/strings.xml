@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Booking Trips</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="create">No account yet? Create one</string>
+    <string name="register">Register</string>
+
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_main">Trips</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date">Date</string>
+    <string name="distance">Distance (in Miles)</string>
+    <string name="time">Time (in Hours)</string>
+    <string name="distanceUnit">Miles</string>
+    <string name="timeUnit">Hours</string>
+    <string name="add">add</string>
+    <string name="title_activity_sign_up">Create account</string>
+    <string name="full_name">Full name</string>
+    <string name="deleted">Delete</string>
+    <string name="undo">Undo</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="title_activity_new_entry">New Entry</string>
+    <string name="token">token</string>
+    <string name="firebase_root">https://fiery-inferno-5654.firebaseio.com/</string>
+    <string name="login">Booking Trips</string>
+    <string name="weekly_report">Weekly Report</string>
+    <string name="time_log">Trips</string>
+    <string name="users">Users</string>
+    <string name="make_manager">Make Manager</string>
+    <string name="error_time_can_not_be_zero">Time value can not be zero</string>
+</resources>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "216368477186",
+    "firebase_url": "https://fiery-inferno-5654.firebaseio.com",
+    "project_id": "fiery-inferno-5654",
+    "storage_bucket": "fiery-inferno-5654.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216368477186:android:0620ef5b4ea85ff2",
+        "android_client_info": {
+          "package_name": "main.tl.com.timelogger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216368477186-ll64neu5djerm6veh16i7b9knnolq7mb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "main.tl.com.timelogger",
+            "certificate_hash": "B64F669D5678177A6C0D5DECF21BC69719C21CBB"
+          }
+        },
+        {
+          "client_id": "216368477186-jbkadt0jeivgtdqfudjl9b91sjfs3q8g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsSC4u0hsjkmr5W8c4l0avipVmR51Igrg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216368477186-jbkadt0jeivgtdqfudjl9b91sjfs3q8g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
