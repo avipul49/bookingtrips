@@ -91,11 +91,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TextViewWithDrawableClick.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TextViewWithDrawableClick.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/view/TextViewWithDrawableClick.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.1235697">
+            <state vertical-scroll-proportion="0.0">
               <caret line="99" column="44" selection-start-line="99" selection-start-column="21" selection-end-line="99" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="223" column="24" selection-start-line="223" selection-start-column="24" selection-end-line="223" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TripFragment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/TripFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.31350115">
+              <caret line="160" column="9" selection-start-line="160" selection-start-column="9" selection-end-line="160" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -116,26 +136,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="153" column="32" selection-start-line="153" selection-start-column="32" selection-end-line="153" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserListFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/trip/UserListFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="139" column="21" selection-start-line="139" selection-start-column="21" selection-end-line="139" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TripFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/TripFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="34" selection-start-line="62" selection-start-column="12" selection-end-line="64" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -2479,10 +2479,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/new_place/NewEntryActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_trip_details.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/authentication/SignUpActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/model/City.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/authentication/BaseActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/TripFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_new_city.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/new_place/NewPlaceActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/new_place/NewPlaceFragment.java" />
@@ -2505,6 +2503,8 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/util/ImageLoaderUtil.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/util/LocalStorage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/TripFragment.java" />
       </list>
     </option>
   </component>
@@ -3075,18 +3075,6 @@
           <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/TripFragment.java</url>
-          <line>162</line>
-          <properties />
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/TripFragment.java</url>
-          <line>169</line>
-          <properties />
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
       </breakpoints>
       <option name="time" value="13" />
     </breakpoint-manager>
@@ -3294,14 +3282,6 @@
       </provider>
       <provider editor-type-id="android-designer">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="243" column="5" selection-start-line="214" selection-start-column="4" selection-end-line="243" selection-end-column="5" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_new_entry.xml">
@@ -3530,14 +3510,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/TripFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="34" selection-start-line="62" selection-start-column="12" selection-end-line="64" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/trip/UserListFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3617,8 +3589,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/view/TextViewWithDrawableClick.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.1235697">
+        <state vertical-scroll-proportion="0.0">
           <caret line="99" column="44" selection-start-line="99" selection-start-column="21" selection-end-line="99" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="223" column="24" selection-start-line="223" selection-start-column="24" selection-end-line="223" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/main/tl/com/timelogger/TripFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31350115">
+          <caret line="160" column="9" selection-start-line="160" selection-start-column="9" selection-end-line="160" selection-end-column="9" />
           <folding />
         </state>
       </provider>

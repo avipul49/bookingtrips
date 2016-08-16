@@ -27,7 +27,6 @@ import java.text.SimpleDateFormat;
 import main.tl.com.timelogger.authentication.LoginActivity;
 import main.tl.com.timelogger.model.User;
 import main.tl.com.timelogger.new_entry.NewEntryActivity;
-import main.tl.com.timelogger.report.ReportFragment;
 import main.tl.com.timelogger.trip.UserListFragment;
 import main.tl.com.timelogger.util.ImageLoaderUtil;
 import main.tl.com.timelogger.util.LocalStorage;
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity
     private Firebase firebaseRoot;
     private DrawerLayout drawer;
     private TripFragment tripFragment;
-    private ReportFragment reportFragment;
 
     private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     private TextViewWithDrawableClick filterStatus;
@@ -86,7 +84,6 @@ public class MainActivity extends AppCompatActivity
 
     private void removeFilterStatus() {
         if (getFragmentManager().getBackStackEntryCount() == 1) {
-            reportFragment.filter(null, null);
         } else {
             tripFragment.filter(null, null);
         }
@@ -224,7 +221,6 @@ public class MainActivity extends AppCompatActivity
             public void onDateTimeRecurrenceSet(SelectedDate selectedDate, int hourOfDay, int minute, SublimeRecurrencePicker.RecurrenceOption recurrenceOption, String recurrenceRule) {
                 filterStatus.setText(dateFormat.format(selectedDate.getFirstDate().getTime()) + " to " + dateFormat.format(selectedDate.getSecondDate().getTime()));
                 if (getFragmentManager().getBackStackEntryCount() == 1) {
-                    reportFragment.filter(selectedDate.getFirstDate().getTime(), selectedDate.getSecondDate().getTime());
                 } else {
                     tripFragment.filter(selectedDate.getFirstDate().getTime(), selectedDate.getSecondDate().getTime());
                 }

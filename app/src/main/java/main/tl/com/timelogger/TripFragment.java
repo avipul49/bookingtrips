@@ -38,6 +38,8 @@ public class TripFragment extends Fragment {
 
     private Date start, end;
     private List<Trip> trips = new ArrayList<>();
+    private List<Trip> allTrips = new ArrayList<>();
+
     private String userId, userName;
     private TripAdapter adapter;
     private Firebase firebaseUserData;
@@ -161,13 +163,12 @@ public class TripFragment extends Fragment {
 
     private void updateTimeList(DataSnapshot snapshot) {
         trips.clear();
-        List<Trip> timeList = new ArrayList<Trip>();
         for (DataSnapshot ds : snapshot.getChildren()) {
             Trip temp = ds.getValue(Trip.class);
             temp.setKey(ds.getKey());
             trips.add(temp);
         }
-        Collections.sort(timeList, new Comparator<Trip>() {
+        Collections.sort(trips, new Comparator<Trip>() {
             @Override
             public int compare(Trip t1, Trip t2) {
                 try {
@@ -178,6 +179,7 @@ public class TripFragment extends Fragment {
                 return 0;
             }
         });
+        allTrips.addAll(trips);
         adapter.notifyDataSetChanged();
 
     }
