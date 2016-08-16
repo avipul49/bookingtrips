@@ -9,14 +9,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="main.tl.com.timelogger.Application"
+        android:name=".Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="main.tl.com.timelogger.authentication.LoginActivity"
+            android:name=".authentication.LoginActivity"
             android:label="@string/login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,15 +25,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="main.tl.com.timelogger.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/time_log"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="main.tl.com.timelogger.authentication.SignUpActivity"
+            android:name=".authentication.SignUpActivity"
             android:label="@string/title_activity_sign_up" />
         <activity
-            android:name="main.tl.com.timelogger.new_entry.NewEntryActivity"
+            android:name=".new_entry.NewEntryActivity"
             android:label="@string/title_activity_new_entry"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".trip.TripDetails"
+            android:label="@string/title_activity_trip_details"></activity>
+        <activity
+            android:name=".new_place.NewPlaceActivity"
+            android:label="@string/title_activity_places"
+
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

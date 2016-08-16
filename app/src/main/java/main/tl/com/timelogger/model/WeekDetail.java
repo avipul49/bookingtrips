@@ -3,12 +3,12 @@ package main.tl.com.timelogger.model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import main.tl.com.timelogger.TimeListAdapter;
+import main.tl.com.timelogger.TripAdapter;
 
 /**
  * Created by vipulmittal on 28/06/16.
  */
-public class WeekDetail implements TimeListAdapter.DisplayItem {
+public class WeekDetail implements TripAdapter.DisplayItem {
     private int year;
     private int weekOfYear;
     private String startDate;
@@ -16,13 +16,13 @@ public class WeekDetail implements TimeListAdapter.DisplayItem {
     private double totalDistance;
     private double totalTime;
     private int numberOfEntries;
-    private ArrayList<TimeEntry> timeEntries = new ArrayList<>();
+    private ArrayList<Trip> timeEntries = new ArrayList<>();
 
-    public ArrayList<TimeEntry> getTimeEntries() {
+    public ArrayList<Trip> getTimeEntries() {
         return timeEntries;
     }
 
-    public void setTimeEntries(ArrayList<TimeEntry> timeEntries) {
+    public void setTimeEntries(ArrayList<Trip> timeEntries) {
         this.timeEntries = timeEntries;
     }
 

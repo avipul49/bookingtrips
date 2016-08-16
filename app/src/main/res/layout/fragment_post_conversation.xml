@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".trip.TripDetails$PlacesFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/comment">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <main.tl.com.timelogger.view.CustomEditText
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/white"
+        android:drawableRight="@drawable/play_icon_colored"
+        android:hint="Message"
+        android:paddingLeft="5dp" />
+</RelativeLayout>

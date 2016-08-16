@@ -7,9 +7,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-/**
- * Created by vipulmittal on 28/06/16.
- */
 public class ImageLoaderUtil {
     public static void displayImage(Context context, String url, ImageView imageView) {
         if (!ImageLoader.getInstance().isInited()) {

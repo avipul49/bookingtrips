@@ -52,7 +52,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 
     protected void gotoMainActivity(AuthData authData) {

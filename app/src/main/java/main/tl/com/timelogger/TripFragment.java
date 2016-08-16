@@ -21,60 +21,65 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import main.tl.com.timelogger.model.TimeEntry;
+import main.tl.com.timelogger.model.Trip;
 import main.tl.com.timelogger.model.User;
-import main.tl.com.timelogger.model.WeekDetail;
 import main.tl.com.timelogger.new_entry.NewEntryActivity;
+import main.tl.com.timelogger.trip.TripDetails;
 
-public class TimeListFragment extends Fragment {
+public class TripFragment extends Fragment {
 
     private static final String USER_ID = "userId";
     private static final String USER_NAME = "userName";
 
     private Date start, end;
-    private List<TimeEntry> timeList;
-    private List<TimeListAdapter.DisplayItem> displayItems;
+    private List<Trip> trips = new ArrayList<>();
     private String userId, userName;
-    private TimeListAdapter adapter;
+    private TripAdapter adapter;
     private Firebase firebaseUserData;
     private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     private RecyclerView recyclerView;
 
     private OnListFragmentInteractionListener mListener = new OnListFragmentInteractionListener() {
         @Override
-        public void deleteTime(TimeEntry item) {
-            firebaseUserData.child("log").child(item.getKey()).removeValue();
+        public void deleteTime(Trip item) {
+            firebaseUserData.child("trip").child(item.getKey()).removeValue();
         }
 
         @Override
-        public void editTime(TimeEntry mItem) {
+        public void editTime(Trip mItem) {
             Intent intent = new Intent(getActivity(), NewEntryActivity.class);
             intent.putExtra("timeJson", new Gson().toJson(mItem));
             intent.putExtra("userId", userId);
             startActivity(intent);
         }
+
+        @Override
+        public void onClick(Trip mItem) {
+            Intent intent = new Intent(getActivity(), TripDetails.class);
+            intent.putExtra("trip", new Gson().toJson(mItem));
+            startActivity(intent);
+        }
     };
 
 
-    public TimeListFragment() {
+    public TripFragment() {
     }
 
-    public static TimeListFragment newInstance(String userId) {
-        TimeListFragment fragment = new TimeListFragment();
+    public static TripFragment newInstance(String userId) {
+        TripFragment fragment = new TripFragment();
         Bundle args = new Bundle();
         args.putString(USER_ID, userId);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static TimeListFragment newInstance(String userId, String userName) {
-        TimeListFragment fragment = new TimeListFragment();
+    public static TripFragment newInstance(String userId, String userName) {
+        TripFragment fragment = new TripFragment();
         Bundle args = new Bundle();
         args.putString(USER_ID, userId);
         args.putString(USER_NAME, userName);
@@ -97,29 +102,28 @@ public class TimeListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_time_list, container, false);
         firebaseUserData = Application.app.getFirebaseRoot().child("users").child(userId);
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        Context context = view.getContext();
+        recyclerView = (RecyclerView) view;
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-            firebaseUserData.child("log").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    updateTimeList(snapshot);
-                }
+        firebaseUserData.child("trips").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                updateTimeList(snapshot);
+            }
 
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                    System.out.println("The read failed: " + firebaseError.getMessage());
-                }
-            });
-        }
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
         if (userId.equals(User.getCurrentUser().getUid())) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.time_log));
         } else {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(userName + "'s " + getString(R.string.time_log));
         }
-
+        adapter = new TripAdapter(trips, mListener);
+        recyclerView.setAdapter(adapter);
         return view;
     }
 
@@ -142,65 +146,30 @@ public class TimeListFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void deleteTime(TimeEntry item);
+        void deleteTime(Trip item);
 
-        void editTime(TimeEntry mItem);
-    }
+        void editTime(Trip mItem);
 
-    public List<TimeListAdapter.DisplayItem> getDisplayItems(List<TimeEntry> log) {
-        List<TimeListAdapter.DisplayItem> displayItems = new ArrayList<>();
-        WeekDetail currentWeek = null;
-        Calendar cal = Calendar.getInstance();
-        for (TimeEntry t : log) {
-            try {
-                Date current = dateFormat.parse(t.getDate());
-
-                if (start == null || end == null || (current.after(start) && current.before(end))) {
-
-                    cal.setTime(current);
-                    int week = cal.get(Calendar.WEEK_OF_YEAR);
-                    int year = cal.get(Calendar.YEAR);
-                    if (currentWeek == null || week != currentWeek.getWeekOfYear() || year != currentWeek.getYear()) {
-                        currentWeek = new WeekDetail();
-                        currentWeek.setWeekOfYear(week);
-                        currentWeek.setYear(year);
-                        cal.add(Calendar.DAY_OF_WEEK,
-                                cal.getFirstDayOfWeek() - cal.get(Calendar.DAY_OF_WEEK));
-                        currentWeek.setStartDate(dateFormat.format(cal.getTime()));
-                        cal.add(Calendar.DAY_OF_YEAR, 6);
-                        currentWeek.setEndDate(dateFormat.format(cal.getTime()));
-                        displayItems.add(currentWeek);
-                    }
-                    currentWeek.setTotalDistance(currentWeek.getTotalDistance() + t.getDistance());
-                    currentWeek.setTotalTime(currentWeek.getTotalTime() + t.getTime());
-                    currentWeek.setNumberOfEntries(currentWeek.getNumberOfEntries() + 1);
-                    displayItems.add(t);
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return displayItems;
+        void onClick(Trip mItem);
     }
 
     public void filter(Date start, Date end) {
         this.start = start;
         this.end = end;
-        displayItems.clear();
-        displayItems.addAll(getDisplayItems(timeList));
         adapter.notifyDataSetChanged();
     }
 
     private void updateTimeList(DataSnapshot snapshot) {
-        List<TimeEntry> timeList = new ArrayList<TimeEntry>();
+        trips.clear();
+        List<Trip> timeList = new ArrayList<Trip>();
         for (DataSnapshot ds : snapshot.getChildren()) {
-            TimeEntry temp = ds.getValue(TimeEntry.class);
+            Trip temp = ds.getValue(Trip.class);
             temp.setKey(ds.getKey());
-            timeList.add(temp);
+            trips.add(temp);
         }
-        Collections.sort(timeList, new Comparator<TimeEntry>() {
+        Collections.sort(timeList, new Comparator<Trip>() {
             @Override
-            public int compare(TimeEntry t1, TimeEntry t2) {
+            public int compare(Trip t1, Trip t2) {
                 try {
                     return dateFormat.parse(t2.getDate()).compareTo(dateFormat.parse(t1.getDate()));
                 } catch (ParseException e) {
@@ -209,10 +178,8 @@ public class TimeListFragment extends Fragment {
                 return 0;
             }
         });
-        TimeListFragment.this.timeList = timeList;
-        TimeListFragment.this.displayItems = getDisplayItems(timeList);
-        adapter = new TimeListAdapter(displayItems, mListener);
-        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
     }
 
     @Override

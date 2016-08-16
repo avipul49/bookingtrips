@@ -2,6 +2,7 @@ package main.tl.com.timelogger.authentication;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
@@ -116,7 +118,9 @@ public class SignUpActivity extends BaseActivity {
 
             @Override
             public void onError(FirebaseError firebaseError) {
-
+                Toast.makeText(SignUpActivity.this, firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.i("<><>", firebaseError.toString());
+                showProgress(false);
             }
         });
     }
@@ -128,7 +132,7 @@ public class SignUpActivity extends BaseActivity {
         userNode.child("profile").child("uid").setValue(uid);
         userNode.child("profile").child("isManager").setValue(false);
         userNode.child("profile").child("isAdmin").setValue(false);
-
+        firebaseRoot.child("user_index").child(LocalStorage.escapeEmail(email)).setValue(uid);
         firebaseRoot.authWithPassword(email, password, new Firebase.AuthResultHandler() {
             @Override
             public void onAuthenticated(AuthData authData) {

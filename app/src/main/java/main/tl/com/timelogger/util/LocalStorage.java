@@ -3,9 +3,6 @@ package main.tl.com.timelogger.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by vipulmittal on 30/06/16.
- */
 public class LocalStorage {
     public static void saveString(Context context, String key, String value) {
         SharedPreferences sharedPref = context.getSharedPreferences("timelogger", Context.MODE_PRIVATE);
@@ -24,5 +21,13 @@ public class LocalStorage {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove(key);
         editor.commit();
+    }
+
+    public static String escapeEmail(String email) {
+        return (email).replace('.', ',');
+    }
+
+    public static String unescapeEmail(String email) {
+        return (email).replace(',', '.');
     }
 }

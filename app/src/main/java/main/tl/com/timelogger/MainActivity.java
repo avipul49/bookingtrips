@@ -1,6 +1,5 @@
 package main.tl.com.timelogger;
 
-import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -29,7 +28,7 @@ import main.tl.com.timelogger.authentication.LoginActivity;
 import main.tl.com.timelogger.model.User;
 import main.tl.com.timelogger.new_entry.NewEntryActivity;
 import main.tl.com.timelogger.report.ReportFragment;
-import main.tl.com.timelogger.users.UserListFragment;
+import main.tl.com.timelogger.trip.UserListFragment;
 import main.tl.com.timelogger.util.ImageLoaderUtil;
 import main.tl.com.timelogger.util.LocalStorage;
 import main.tl.com.timelogger.view.SublimePickerFragment;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, UserListFragment.OnUserListActionListener {
     private Firebase firebaseRoot;
     private DrawerLayout drawer;
-    private TimeListFragment timeListFragment;
+    private TripFragment tripFragment;
     private ReportFragment reportFragment;
 
     private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         if (getFragmentManager().getBackStackEntryCount() == 1) {
             reportFragment.filter(null, null);
         } else {
-            timeListFragment.filter(null, null);
+            tripFragment.filter(null, null);
         }
         filterStatus.setVisibility(View.GONE);
     }
@@ -98,8 +97,8 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (savedInstanceState == null) {
-            timeListFragment = TimeListFragment.newInstance(User.getCurrentUser().getUid());
-            fragmentTransaction.add(R.id.fragment_container, timeListFragment, "timeListFragment");
+            tripFragment = TripFragment.newInstance(User.getCurrentUser().getUid());
+            fragmentTransaction.add(R.id.fragment_container, tripFragment, "timeListFragment");
             fragmentTransaction.commit();
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
@@ -136,16 +135,17 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        navHeaderEmail.setText(User.getCurrentUser().getEmail());
-        navHeaderName.setText(User.getCurrentUser().getName());
-        ImageLoaderUtil.displayImage(this, User.getCurrentUser().getImageURL(), userImage);
-        navigationView.setNavigationItemSelectedListener(this);
-        if (User.getCurrentUser().isAdmin() || User.getCurrentUser().isManager()) {
-            navigationView.inflateMenu(R.menu.manager_activity_main_drawer);
+        if (User.getCurrentUser() == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
         } else {
+            navHeaderEmail.setText(User.getCurrentUser().getEmail());
+            navHeaderName.setText(User.getCurrentUser().getName());
+            ImageLoaderUtil.displayImage(this, User.getCurrentUser().getImageURL(), userImage);
+            navigationView.setNavigationItemSelectedListener(this);
             navigationView.inflateMenu(R.menu.activity_main_drawer);
+            navigationView.setCheckedItem(R.id.list);
         }
-        navigationView.setCheckedItem(R.id.list);
     }
 
     private void showNewEntryActivity() {
@@ -184,21 +184,8 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         switch (id) {
-            case R.id.users:
-                getFragmentManager().popBackStack();
-                fragmentTransaction.add(R.id.fragment_container, UserListFragment.newInstance(), "users");
-                fragmentTransaction.addToBackStack("users");
-                fragmentTransaction.commit();
-                break;
             case R.id.list:
                 getFragmentManager().popBackStack();
-                break;
-            case R.id.report:
-                getFragmentManager().popBackStack();
-                reportFragment = ReportFragment.newInstance(User.getCurrentUser().getUid());
-                fragmentTransaction.add(R.id.fragment_container, reportFragment, "report");
-                fragmentTransaction.addToBackStack("report");
-                fragmentTransaction.commit();
                 break;
             case R.id.new_entry:
                 showNewEntryActivity();
@@ -207,11 +194,8 @@ public class MainActivity extends AppCompatActivity
                 logout();
                 break;
             case R.id.filter:
-                if (currentSelectedItem != R.id.users) {
-                    showDateRangePicker();
-                    drawer.closeDrawer(GravityCompat.START);
-                    return false;
-                }
+                showDateRangePicker();
+                drawer.closeDrawer(GravityCompat.START);
                 break;
         }
         currentSelectedItem = id;
@@ -242,7 +226,7 @@ public class MainActivity extends AppCompatActivity
                 if (getFragmentManager().getBackStackEntryCount() == 1) {
                     reportFragment.filter(selectedDate.getFirstDate().getTime(), selectedDate.getSecondDate().getTime());
                 } else {
-                    timeListFragment.filter(selectedDate.getFirstDate().getTime(), selectedDate.getSecondDate().getTime());
+                    tripFragment.filter(selectedDate.getFirstDate().getTime(), selectedDate.getSecondDate().getTime());
                 }
                 filterStatus.setVisibility(View.VISIBLE);
             }
@@ -255,7 +239,7 @@ public class MainActivity extends AppCompatActivity
         Bundle bundle = new Bundle();
         bundle.putParcelable("SUBLIME_OPTIONS", options);
         pickerFrag.setArguments(bundle);
-        pickerFrag.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        //pickerFrag.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         pickerFrag.show(getSupportFragmentManager(), "SUBLIME_PICKER");
     }
 
@@ -264,8 +248,8 @@ public class MainActivity extends AppCompatActivity
         displayedUser = item;
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        TimeListFragment timeListFragment = TimeListFragment.newInstance(item.getUid(), item.getName());
-        fragmentTransaction.add(R.id.fragment_container, timeListFragment, "usertimeListFragment");
+        TripFragment tripFragment = TripFragment.newInstance(item.getUid(), item.getName());
+        fragmentTransaction.add(R.id.fragment_container, tripFragment, "usertimeListFragment");
         fragmentTransaction.addToBackStack("userTimeEntry");
         fragmentTransaction.commit();
     }

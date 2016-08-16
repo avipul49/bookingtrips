@@ -1,4 +1,4 @@
-package main.tl.com.timelogger.users;
+package main.tl.com.timelogger.trip;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

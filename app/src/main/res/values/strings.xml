@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Booking Trips</string>
 
-    <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
@@ -26,7 +25,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="date">Date</string>
-    <string name="distance">Distance (in Miles)</string>
+    <string name="name">Name</string>
     <string name="time">Time (in Hours)</string>
     <string name="distanceUnit">Miles</string>
     <string name="timeUnit">Hours</string>
@@ -37,7 +36,7 @@
     <string name="undo">Undo</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
-    <string name="title_activity_new_entry">New Entry</string>
+    <string name="title_activity_new_entry">Add Trip</string>
     <string name="token">token</string>
     <string name="firebase_root">https://fiery-inferno-5654.firebaseio.com/</string>
     <string name="login">Booking Trips</string>
@@ -46,4 +45,7 @@
     <string name="users">Users</string>
     <string name="make_manager">Make Manager</string>
     <string name="error_time_can_not_be_zero">Time value can not be zero</string>
+    <string name="title_activity_trip_details">TripDetails</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_places">Add city</string>
 </resources>
