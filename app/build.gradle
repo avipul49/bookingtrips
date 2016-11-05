@@ -45,5 +45,6 @@ dependencies {
     compile 'com.borax12.materialdaterangepicker:library:1.6'
     compile 'com.appeaser.sublimepickerlibrary:sublimepickerlibrary:2.1.1'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
-
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.sothree.slidinguppanel:library:3.3.0'
 }

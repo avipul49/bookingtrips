@@ -6,10 +6,9 @@
     android:name="main.tl.com.timelogger.ItemFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="10dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="16dp"
+    android:layout_marginLeft="7dp"
+    android:layout_marginRight="7dp"
+    android:layout_marginTop="7dp"
     android:background="@color/lightGrey"
     app:layoutManager="LinearLayoutManager"
     tools:context=".TripFragment" />

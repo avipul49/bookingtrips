@@ -2,7 +2,6 @@ package main.tl.com.timelogger.trip;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -31,11 +30,11 @@ import java.util.Date;
 
 import main.tl.com.timelogger.Application;
 import main.tl.com.timelogger.R;
+import main.tl.com.timelogger.authentication.LoginActivity;
 import main.tl.com.timelogger.model.City;
 import main.tl.com.timelogger.model.Message;
 import main.tl.com.timelogger.model.Trip;
 import main.tl.com.timelogger.model.User;
-import main.tl.com.timelogger.new_place.NewPlaceActivity;
 import main.tl.com.timelogger.view.CustomEditText;
 
 public class TripDetails extends AppCompatActivity implements UserListFragment.OnUserListActionListener {
@@ -51,8 +50,9 @@ public class TripDetails extends AppCompatActivity implements UserListFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_details);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        if (User.getCurrentUser() == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+        }
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -65,7 +65,8 @@ public class TripDetails extends AppCompatActivity implements UserListFragment.O
         trip = new Gson().fromJson(getIntent().getStringExtra("trip"), Trip.class);
 
         setTitle(trip.getName());
-
+//        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+//        startActivityForResult(contactPickerIntent, 1000);
     }
 
 
@@ -79,7 +80,7 @@ public class TripDetails extends AppCompatActivity implements UserListFragment.O
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.book) {
             return true;
         }
 
@@ -94,77 +95,14 @@ public class TripDetails extends AppCompatActivity implements UserListFragment.O
     @Override
     public void deleteUser(User item) {
         Application.app.getFirebaseRoot().child("trips").child(trip.getKey()).child("members").child(item.getUid()).removeValue();
+        Application.app.getFirebaseRoot().child("users").child(item.getKey()).child("trips").child(trip.getKey()).removeValue();
+        finish();
     }
 
-    public static class PlacesFragment extends Fragment {
+    public interface OnPlacesActionListener {
+        void editPlace(City item);
 
-        public PlacesFragment() {
-        }
-
-        Trip trip;
-        ArrayList<City> cities = new ArrayList<>();
-        PlaceAdapter adapter;
-
-        public static PlacesFragment newInstance(Trip trip) {
-            PlacesFragment fragment = new PlacesFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("trip", new Gson().toJson(trip));
-            fragment.setArguments(bundle);
-            return fragment;
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            if (getArguments() != null)
-                trip = new Gson().fromJson(getArguments().getString("trip"), Trip.class);
-        }
-
-        @Override
-        public View onCreateView(final LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_trip_details, container, false);
-//            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-//            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            adapter = new PlaceAdapter(cities, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-            RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.rv_places);
-            rv.setLayoutManager(new LinearLayoutManager(getContext()));
-            rv.setAdapter(adapter);
-            FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
-
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), NewPlaceActivity.class);
-                    intent.putExtra("userId", User.getCurrentUser().getUid());
-                    intent.putExtra("trip", new Gson().toJson(trip));
-                    getActivity().startActivity(intent);
-                }
-            });
-            final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child("trips").child(((TripDetails) getActivity()).trip.getKey()).child("places").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    cities.clear();
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        cities.add(ds.getValue(City.class));
-                    }
-                    adapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-            return rootView;
-        }
+        void deletePlace(City item);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -247,7 +185,7 @@ public class TripDetails extends AppCompatActivity implements UserListFragment.O
                     long last = -1;
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Message message = snapshot.getValue(Message.class);
-                        //calendar.setTimeInMillis(message.getDate());
+                        //calendar.setTimeInMillis(message.getStartDate());
                         if (last != message.getDate() / (24 * 60 * 60 * 1000)) {
                             last = message.getDate() / (24 * 60 * 60 * 1000);
                             Message time = new Message();
@@ -292,4 +230,8 @@ public class TripDetails extends AppCompatActivity implements UserListFragment.O
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

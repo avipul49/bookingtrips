@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import main.tl.com.timelogger.Application;
 import main.tl.com.timelogger.R;
 import main.tl.com.timelogger.model.User;
 import main.tl.com.timelogger.util.ImageLoaderUtil;
@@ -40,12 +39,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.userName.setText(mValues.get(position).getName());
         holder.email.setText(mValues.get(position).getEmail());
         ImageLoaderUtil.displayImage(holder.itemView.getContext(), mValues.get(position).getImageURL(), holder.userImage);
-        if (mValues.get(position).isManager()) {
-            holder.manager.setVisibility(View.VISIBLE);
-        } else {
-            holder.manager.setVisibility(View.GONE);
-        }
         if (mValues.get(position).getUid().equals(User.getCurrentUser().getUid())) {
+            holder.mMenu.setVisibility(View.VISIBLE);
+        } else {
             holder.mMenu.setVisibility(View.INVISIBLE);
         }
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -79,31 +75,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             email = (TextView) view.findViewById(R.id.email);
             userImage = (ImageView) view.findViewById(R.id.user_image);
             mMenu = (ImageView) view.findViewById(R.id.menu);
-            manager = (TextView) view.findViewById(R.id.manager);
 
             mMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View view) {
                     PopupMenu popup = new PopupMenu(view.getContext(), mMenu);
                     MenuInflater inflater = popup.getMenuInflater();
-                    if (User.getCurrentUser().isAdmin()) {
-                        inflater.inflate(R.menu.admin_user_item_menu, popup.getMenu());
-                        if (mItem.isManager()) {
-                            MenuItem item = popup.getMenu().getItem(0);
-                            item.setTitle("Remove Manager");
-                        }
-                    } else {
-                        inflater.inflate(R.menu.user_item_menu, popup.getMenu());
-                    }
+                    inflater.inflate(R.menu.user_item_menu, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             switch (menuItem.getItemId()) {
                                 case R.id.delete:
                                     mListener.deleteUser(mItem);
-                                    break;
-                                case R.id.make_manager:
-                                    Application.app.getFirebaseRoot().child("users").child(mItem.getUid()).child("profile").child("isManager").setValue(!mItem.isManager());
                                     break;
                             }
                             return true;

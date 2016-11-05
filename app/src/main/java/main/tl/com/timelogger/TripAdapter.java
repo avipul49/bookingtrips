@@ -38,7 +38,7 @@ public class TripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         switch (getItemViewType(position)) {
             case TIME_ITEM:
                 ((ViewHolder) holder).mName.setText(((Trip) mValues.get(position)).getName());
-                ((ViewHolder) holder).mDate.setText(((Trip) mValues.get(position)).getDate());
+                ((ViewHolder) holder).mDate.setText(((Trip) mValues.get(position)).getStartDate());
                 ((ViewHolder) holder).mItem = (Trip) mValues.get(position);
                 ((ViewHolder) holder).mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -87,7 +87,7 @@ public class TripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(view);
             mView = view;
             mName = (TextView) view.findViewById(R.id.name);
-            mDate = (TextView) view.findViewById(R.id.date);
+            mDate = (TextView) view.findViewById(R.id.startDate);
             mMenu = (ImageView) view.findViewById(R.id.menu);
             if (mMenu != null)
                 mMenu.setOnClickListener(new View.OnClickListener() {

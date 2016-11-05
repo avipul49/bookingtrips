@@ -159,8 +159,6 @@ public class LoginActivity extends BaseActivity {
         user.setImageURL((String) dataSnapshot.child("imageURL").getValue());
         user.setName((String) dataSnapshot.child("name").getValue());
         user.setUid((String) dataSnapshot.child("uid").getValue());
-        user.setManager(dataSnapshot.hasChild("isManager") && (boolean) dataSnapshot.child("isManager").getValue());
-        user.setAdmin(dataSnapshot.hasChild("isAdmin") && (boolean) dataSnapshot.child("isAdmin").getValue());
         User.setCurrentUser(user);
     }
 

@@ -43,7 +43,7 @@ public class NewEntryFragment extends Fragment {
     private EditText mDateEditText;
     private EditText mNameEditText;
     private Trip timeToEdit;
-    private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public NewEntryFragment() {
     }
@@ -77,7 +77,7 @@ public class NewEntryFragment extends Fragment {
         Button addButton = (Button) view.findViewById(R.id.add);
         mProgressView = view.findViewById(R.id.add_progress);
         mAddFormView = view.findViewById(R.id.add_form);
-        mDateEditText = (EditText) view.findViewById(R.id.date);
+        mDateEditText = (EditText) view.findViewById(R.id.startDate);
         mNameEditText = (EditText) view.findViewById(R.id.name);
         mDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +94,7 @@ public class NewEntryFragment extends Fragment {
         });
 
         if (timeToEdit != null) {
-            mDateEditText.setText(timeToEdit.getDate());
+            mDateEditText.setText(timeToEdit.getStartDate());
             mNameEditText.setText(timeToEdit.getName());
         }
         return view;
@@ -128,38 +128,65 @@ public class NewEntryFragment extends Fragment {
 
             DatabaseReference userLog = mDatabase.child("users").child(userId).child("trips");
             showProgress(true);
-            if (timeToEdit != null) {
-                userLog.child(timeToEdit.getKey()).removeValue();
-            }
-
             final Trip trip = new Trip(mDateEditText.getText().toString(), mNameEditText.getText().toString());
-            userLog.push().setValue(trip, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    if (databaseError == null) {
-                        mDatabase.child("trips").child(databaseReference.getKey()).child("members").child(User.getCurrentUser().getUid()).setValue(User.getCurrentUser());
-                        Message message = new Message();
-                        message.setMessage(User.getCurrentUser().getName() + " created the trip.");
-                        message.setDate(System.currentTimeMillis());
-                        message.setType("ACTION");
-                        message.setUserId(User.getCurrentUser().getUid());
-                        message.setUserName(User.getCurrentUser().getName());
-                        trip.setKey(databaseReference.getKey());
-                        mDatabase.child("trips").child(databaseReference.getKey()).child("discussion").push().setValue(message, new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                                Intent intent = new Intent(getActivity(), TripDetails.class);
-                                intent.putExtra("trip", new Gson().toJson(trip));
-                                startActivity(intent);
-                                getActivity().finish();
-                            }
-                        });
-                    } else {
-                        getActivity().finish();
-                    }
+            if (timeToEdit != null) {
+                userLog.child(timeToEdit.getKey()).setValue(trip, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        if (databaseError == null) {
+                            mDatabase.child("trips").child(databaseReference.getKey()).child("members").child(User.getCurrentUser().getUid()).setValue(User.getCurrentUser());
+                            Message message = new Message();
+                            message.setMessage(User.getCurrentUser().getName() + " updated the trip.");
+                            message.setDate(System.currentTimeMillis());
+                            message.setType("ACTION");
+                            message.setUserId(User.getCurrentUser().getUid());
+                            message.setUserName(User.getCurrentUser().getName());
+                            trip.setKey(databaseReference.getKey());
+                            mDatabase.child("trips").child(databaseReference.getKey()).child("discussion").push().setValue(message, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                    Intent intent = new Intent(getActivity(), TripDetails.class);
+                                    intent.putExtra("trip", new Gson().toJson(trip));
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                }
+                            });
+                        } else {
+                            getActivity().finish();
+                        }
 
-                }
-            });
+                    }
+                });
+            } else {
+
+                userLog.push().setValue(trip, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        if (databaseError == null) {
+                            mDatabase.child("trips").child(databaseReference.getKey()).child("members").child(User.getCurrentUser().getUid()).setValue(User.getCurrentUser());
+                            Message message = new Message();
+                            message.setMessage(User.getCurrentUser().getName() + " created the trip.");
+                            message.setDate(System.currentTimeMillis());
+                            message.setType("ACTION");
+                            message.setUserId(User.getCurrentUser().getUid());
+                            message.setUserName(User.getCurrentUser().getName());
+                            trip.setKey(databaseReference.getKey());
+                            mDatabase.child("trips").child(databaseReference.getKey()).child("discussion").push().setValue(message, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                    Intent intent = new Intent(getActivity(), TripDetails.class);
+                                    intent.putExtra("trip", new Gson().toJson(trip));
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                }
+                            });
+                        } else {
+                            getActivity().finish();
+                        }
+
+                    }
+                });
+            }
         }
     }
 

@@ -11,26 +11,8 @@ public class User {
     private String email;
     private String name;
     private String imageURL;
-    private boolean isManager;
-    private boolean isAdmin;
     private static User currentUser;
     private String key;
-
-    public boolean isManager() {
-        return isManager;
-    }
-
-    public void setManager(boolean manager) {
-        isManager = manager;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
-    }
 
     public String getUid() {
         return uid;

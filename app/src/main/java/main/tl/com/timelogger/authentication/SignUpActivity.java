@@ -130,8 +130,6 @@ public class SignUpActivity extends BaseActivity {
         userNode.child("profile").child("email").setValue(email);
         userNode.child("profile").child("name").setValue(name);
         userNode.child("profile").child("uid").setValue(uid);
-        userNode.child("profile").child("isManager").setValue(false);
-        userNode.child("profile").child("isAdmin").setValue(false);
         firebaseRoot.child("user_index").child(LocalStorage.escapeEmail(email)).setValue(uid);
         firebaseRoot.authWithPassword(email, password, new Firebase.AuthResultHandler() {
             @Override
@@ -139,7 +137,7 @@ public class SignUpActivity extends BaseActivity {
                 LocalStorage.saveString(SignUpActivity.this, getString(R.string.token), authData.getToken());
                 showProgress(false);
                 setCurrentUser(authData, name);
-                userNode.child("profile").child("imageURL").setValue((String) authData.getProviderData().get("profileImageURL"));
+                userNode.child("profile").child("imageURL").setValue(authData.getProviderData().get("profileImageURL"));
                 gotoMainActivity(authData);
             }
 

@@ -24,7 +24,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="date">Date</string>
+    <string name="startDate">Date</string>
     <string name="name">Name</string>
     <string name="time">Time (in Hours)</string>
     <string name="distanceUnit">Miles</string>

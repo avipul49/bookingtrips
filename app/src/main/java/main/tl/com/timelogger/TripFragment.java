@@ -43,7 +43,7 @@ public class TripFragment extends Fragment {
     private String userId, userName;
     private TripAdapter adapter;
     private Firebase firebaseUserData;
-    private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private RecyclerView recyclerView;
 
     private OnListFragmentInteractionListener mListener = new OnListFragmentInteractionListener() {
@@ -172,7 +172,7 @@ public class TripFragment extends Fragment {
             @Override
             public int compare(Trip t1, Trip t2) {
                 try {
-                    return dateFormat.parse(t2.getDate()).compareTo(dateFormat.parse(t1.getDate()));
+                    return dateFormat.parse(t2.getStartDate()).compareTo(dateFormat.parse(t1.getStartDate()));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

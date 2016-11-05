@@ -80,6 +80,12 @@ public class MainActivity extends AppCompatActivity
 
         setupInitialFragment(savedInstanceState);
         displayedUser = User.getCurrentUser();
+
+//        try {
+//            run("https://distribution-xml.booking.com/json/bookings.autocomplete?text=london&languagecode=en");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void removeFilterStatus() {
@@ -254,4 +260,5 @@ public class MainActivity extends AppCompatActivity
     public void deleteUser(User item) {
         firebaseRoot.child("users").child(item.getKey()).removeValue();
     }
+
 }

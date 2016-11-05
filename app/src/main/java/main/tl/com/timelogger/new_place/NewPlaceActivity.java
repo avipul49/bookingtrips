@@ -20,11 +20,13 @@ public class NewPlaceActivity extends AppCompatActivity {
         String timeJson = getIntent().getStringExtra("trip");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String userId = getIntent().getStringExtra("userId");
+        String cityJson = getIntent().getStringExtra("city");
 
+        int order = getIntent().getIntExtra("order", 0);
         if (savedInstanceState == null) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragment_container, NewPlaceFragment.newInstance(userId, timeJson));
+            fragmentTransaction.add(R.id.fragment_container, NewPlaceFragment.newInstance(userId, timeJson, order, cityJson));
             fragmentTransaction.commit();
         }
     }
